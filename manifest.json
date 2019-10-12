@@ -1,0 +1,33 @@
+{
+  "manifest_version": 2,
+  "name": "KinderDL",
+  "version": "0.1",
+  "permissions": [
+    "downloads",
+    "storage",
+    "tabs"
+  ],
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": false
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://app.kinderloop.com/*", 
+        "http://app.kinderloop.com/*"
+      ],
+      "js": ["jquery-3.4.1.min.js", "content.js"]
+     }
+  ],
+  "page_action": {
+    "default_icon": "kinderloop.png"
+  },
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "icons": { "16": "kinderloop16.png",
+           "48": "kinderloop48.png",
+          "128": "kinderloop128.png" 
+  }
+}
