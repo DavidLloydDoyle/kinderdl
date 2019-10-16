@@ -1,7 +1,13 @@
+// Mainly here for an example at this stage
+// Nothing is done with the options other than saved/retrieve
+
 // Saves options to chrome.storage
 function save_options() {
+  //Get the value of the options from the form elements
   var color = document.getElementById('color').value;
   var likesColor = document.getElementById('like').checked;
+  
+  //Use the Chrome Storage API to save the values
   chrome.storage.sync.set({
     favoriteColor: color,
     likesColor: likesColor
@@ -12,7 +18,6 @@ function save_options() {
     setTimeout(function() {
       status.textContent = '';
     }, 750);
-  console.log("saved");
   });
 }
 
@@ -27,8 +32,10 @@ function restore_options() {
     document.getElementById('color').value = items.favoriteColor;
     document.getElementById('like').checked = items.likesColor;
   });
-  console.log("loaded");
 }
 
+//Set event listener to restore the options once the DOM is loaded 
 document.addEventListener('DOMContentLoaded', restore_options);
+
+//Set event listener to save the form values once the save button is clicked 
 document.getElementById('save').addEventListener('click', save_options);
