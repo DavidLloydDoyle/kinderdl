@@ -4,11 +4,9 @@ function checkForValidUrl(tabId, changeInfo, tab)
 {
     if(typeof tab != "undefined" && typeof tab != "null" )
     {
-        // If the tabs URL contains "specificsite.com"...
+        // If the tabs URL contains a specific string. eg. Only enable the extension on those pages.
         if(tab.url.indexOf('http://app.kinderloop.com') == 0)
         {
-            // ... show the page action.
-            console.log(tab.url);
             chrome.pageAction.show(tabId);
         }
     }
@@ -26,36 +24,17 @@ chrome.pageAction.onClicked.addListener(function(tab) {
   });
 });
 
-// This block is new!
+// An event listener to execute actions if background.js gets messaegs sent to it
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
+    // Open a new tab with the the URL sent in the message
     if( request.message === "open_new_tab" ) {
       chrome.tabs.create({"url": request.url});
     }
 
+    // Download the file from the URL sent in the message
     if( request.message === "download" ) {
       chrome.downloads.download({url: request.url});
     }
   }
 );
-
-
-//MVP1
-//load page/images until date/X
-  //find images
-  //dl images
-
-//MVP2
-//has this run before? if so get date? otherwise go until no more pages?? or X
-//store latest date, so next time doesnt overlap.
-
-//MVP3
-//remove duplicates 
-//sort images (date/room/posttype etc)
-//add date to meta data??
-
-//MVP4
-//capture persoanl posts just to ben or from X or Y
-
-//MVP5
-//Use comments as descriptons in meta data?
